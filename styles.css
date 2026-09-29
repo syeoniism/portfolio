@@ -385,7 +385,7 @@ footer { display: flex; justify-content: space-between; padding-top: 1.5rem; bor
   .career-nav-prev { left: 0; }
   .career-nav-next { right: 0; }
   .career-gallery .phone-nav { top: calc((100vw - 2.7rem) * .275); }
-  .career-captions { position: static; min-height: 7.5rem; margin: 2.25rem 2.7rem 0; }
+  .career-captions { position: static; min-height: 7.5rem; margin: 3.5rem 2.7rem 0; }
   .career-captions strong { font-size: .85rem; }
   .career-captions span { font-size: .9rem; line-height: 1.5; }
   .archive-head { display: block; }

@@ -1,17 +1,34 @@
 const sections = [...document.querySelectorAll(".section")];
 const railDots = [...document.querySelectorAll(".rail-dot")];
 
-const sectionObserver = new IntersectionObserver(
-  (entries) => {
-    const visible = entries
-      .filter((entry) => entry.isIntersecting)
-      .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-    if (!visible) return;
-    railDots.forEach((dot) => dot.classList.toggle("is-active", dot.getAttribute("href") === `#${visible.target.id}`));
-  },
-  { threshold: [0.25, 0.55, 0.8] }
-);
-sections.forEach((section) => sectionObserver.observe(section));
+function updateActiveSection() {
+  const activationLine = innerHeight * 0.35;
+  let activeSection = sections[0];
+
+  sections.forEach((section) => {
+    if (section.getBoundingClientRect().top <= activationLine) activeSection = section;
+  });
+
+  railDots.forEach((dot) => {
+    const isActive = dot.getAttribute("href") === `#${activeSection.id}`;
+    dot.classList.toggle("is-active", isActive);
+    if (isActive) dot.setAttribute("aria-current", "location");
+    else dot.removeAttribute("aria-current");
+  });
+}
+
+let sectionUpdateFrame = null;
+function requestSectionUpdate() {
+  if (sectionUpdateFrame !== null) return;
+  sectionUpdateFrame = requestAnimationFrame(() => {
+    updateActiveSection();
+    sectionUpdateFrame = null;
+  });
+}
+
+window.addEventListener("scroll", requestSectionUpdate, { passive: true });
+window.addEventListener("resize", requestSectionUpdate);
+updateActiveSection();
 
 const canvas = document.querySelector(".sound-field");
 const context = canvas.getContext("2d");
