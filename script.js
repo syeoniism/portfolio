@@ -76,6 +76,29 @@ function drawField() {
 }
 drawField();
 
+const heroPhoto = document.querySelector(".hero-photo");
+const supportsPhotoHover = matchMedia("(hover: hover) and (pointer: fine)").matches;
+
+if (heroPhoto && supportsPhotoHover && !reducedMotion) {
+  heroPhoto.addEventListener("pointermove", (event) => {
+    const bounds = heroPhoto.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / bounds.width;
+    const y = (event.clientY - bounds.top) / bounds.height;
+
+    heroPhoto.style.setProperty("--photo-x", `${x * 100}%`);
+    heroPhoto.style.setProperty("--photo-y", `${y * 100}%`);
+    heroPhoto.style.setProperty("--photo-tilt-x", `${(0.5 - y) * 6}deg`);
+    heroPhoto.style.setProperty("--photo-tilt-y", `${(x - 0.5) * 6}deg`);
+    heroPhoto.classList.add("is-interacting");
+  });
+
+  heroPhoto.addEventListener("pointerleave", () => {
+    heroPhoto.classList.remove("is-interacting");
+    heroPhoto.style.setProperty("--photo-tilt-x", "0deg");
+    heroPhoto.style.setProperty("--photo-tilt-y", "0deg");
+  });
+}
+
 const phoneStage = document.querySelector(".phone-stage");
 if (phoneStage) {
   const phones = [...phoneStage.querySelectorAll(".phone")];
