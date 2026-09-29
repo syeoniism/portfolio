@@ -22,6 +22,34 @@ let pulses = [];
 let dots = [];
 let frame = 0;
 
+const revealTargets = [...document.querySelectorAll(
+  ".section > .section-kicker, .about-heading, .about-copy, .section-intro, .project-meta, .phone-stage, .career-gallery, .archive-head, .timeline-year, .contact-inner"
+)];
+
+if (!reducedMotion && "IntersectionObserver" in window) {
+  document.documentElement.classList.add("has-scroll-reveal");
+
+  revealTargets.forEach((target) => {
+    target.classList.add("reveal-item");
+    if (target.matches(".about-copy, .phone-stage, .career-gallery")) {
+      target.style.setProperty("--reveal-delay", "90ms");
+    }
+  });
+
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-revealed");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.12, rootMargin: "0px 0px -7%" }
+  );
+
+  requestAnimationFrame(() => revealTargets.forEach((target) => revealObserver.observe(target)));
+}
+
 function resizeField() {
   const ratio = Math.min(devicePixelRatio || 1, 2);
   const rect = hero.getBoundingClientRect();
