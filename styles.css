@@ -257,9 +257,10 @@ html.has-scroll-reveal .reveal-item.is-revealed { opacity: 1; transform: none; }
 .timeline-gallery-grid.is-single, .timeline-gallery-grid.is-poster { grid-template-columns: minmax(0, 1fr); max-width: 48rem; }
 .timeline-gallery-grid.is-poster { max-width: 40rem; }
 .timeline-media { display: block; flex: 0 0 auto; justify-self: start; min-width: 0; width: fit-content; max-width: 100%; padding: 0; overflow: visible; background: transparent; border: 0; border-radius: 0; scroll-snap-align: start; cursor: zoom-in; }
-.timeline-media img { display: block; width: auto; max-width: 100%; height: auto; max-height: min(68vh, 36rem); border: 1px solid rgba(255,255,255,.48); border-radius: .7rem; box-shadow: .55rem .55rem 0 rgba(214,235,158,.58); }
+.timeline-media img { display: block; width: auto; max-width: 100%; height: auto; max-height: min(66vh, 34rem); border: 1px solid rgba(255,255,255,.48); border-radius: .7rem; box-shadow: .55rem .55rem 0 rgba(214,235,158,.58); }
+.timeline-media.is-portrait img, .timeline-gallery-row.is-screens .timeline-media img { max-height: min(58vh, 30rem); }
 .timeline-media:focus-visible { outline: 1px solid var(--acid); outline-offset: .75rem; }
-.timeline-gallery-grid.is-poster .timeline-media img { max-height: min(72vh, 42rem); }
+.timeline-gallery-grid.is-poster .timeline-media img { max-height: min(60vh, 32rem); }
 .timeline-file-link { display: inline-flex; gap: .45rem; align-items: center; margin-top: 1.35rem; color: var(--acid); font-size: .82rem; font-weight: 800; text-decoration: none; letter-spacing: .04em; }
 .timeline-file-link:hover, .timeline-file-link:focus-visible { text-decoration: underline; text-underline-offset: .3rem; }
 
@@ -286,6 +287,7 @@ footer { flex-shrink: 0; display: flex; justify-content: space-between; padding-
   .project { gap: 3rem; }
   .feature-grid { gap: .55rem; }
   .feature-grid article { padding-inline: .7rem; }
+  .timeline-year { grid-template-columns: 1fr; gap: 1.4rem; }
 }
 
 @media (max-width: 900px) {
@@ -334,10 +336,15 @@ footer { flex-shrink: 0; display: flex; justify-content: space-between; padding-
   .phone { width: min(46vw, 16rem); }
   .phone.is-prev { left: 13%; }
   .phone.is-next { left: 87%; }
-  .career-gallery { min-height: 30rem; }
+  .career-gallery { min-height: 0; }
+  .career-gallery::before { content: ""; display: block; width: 88%; aspect-ratio: 16 / 10; margin: 0 auto; }
   .browser-shot { width: min(88%, 45rem); }
-  .browser-shot.is-prev { left: 7%; }
-  .browser-shot.is-next { left: 93%; }
+  .browser-shot { top: 0; }
+  .browser-shot.is-active { transform: translateX(-50%); }
+  .browser-shot.is-prev { left: 7%; transform: translateX(-50%) scale(.68) rotate(-1deg); }
+  .browser-shot.is-next { left: 93%; transform: translateX(-50%) scale(.68) rotate(1deg); }
+  .career-gallery .phone-nav { top: calc((100vw - (var(--pad) * 2)) * .275); }
+  .career-captions { position: static; min-height: 6.5rem; margin: 2.5rem 9% 0; }
   .timeline-year { grid-template-columns: 1fr; gap: 1.4rem; }
   .timeline-list article { grid-template-columns: 7rem 1fr 2.5rem; }
   .timeline-toggle { grid-template-columns: 7rem 1fr 2.5rem; }
@@ -409,8 +416,9 @@ footer { flex-shrink: 0; display: flex; justify-content: space-between; padding-
   .timeline-gallery-grid { scroll-padding-left: .1rem; }
   .timeline-gallery-row.is-screens, .timeline-gallery-row.is-photos { justify-content: flex-start; }
   .timeline-gallery-row.is-screens .timeline-media, .timeline-gallery-row.is-photos .timeline-media { flex-basis: auto; width: auto; }
-  .timeline-media img { max-height: min(65vh, 30rem); }
-  .timeline-gallery-grid.is-poster .timeline-media img { max-height: min(70vh, 32rem); }
+  .timeline-media img { max-height: min(62vh, 28rem); }
+  .timeline-media.is-portrait img, .timeline-gallery-row.is-screens .timeline-media img { max-height: min(54vh, 24rem); }
+  .timeline-gallery-grid.is-poster .timeline-media img { max-height: min(58vh, 26rem); }
   .timeline-list h3 { margin: .4rem 0; font-size: 1.18rem; }
   .timeline-list p { font-size: .94rem; }
   .contact { min-height: 44rem; padding-bottom: 5.5rem; }
