@@ -260,3 +260,16 @@ timelineToggles.forEach((toggle) => {
     gallery.hidden = !willOpen;
   });
 });
+
+const projectDetailToggles = [...document.querySelectorAll(".project-details-toggle")];
+projectDetailToggles.forEach((toggle) => {
+  toggle.addEventListener("click", () => {
+    const panel = document.getElementById(toggle.getAttribute("aria-controls"));
+    const willOpen = toggle.getAttribute("aria-expanded") !== "true";
+
+    toggle.setAttribute("aria-expanded", String(willOpen));
+    toggle.querySelector("span").textContent = willOpen ? "Close project details" : "View project details";
+    panel.classList.toggle("is-open", willOpen);
+    panel.setAttribute("aria-hidden", String(!willOpen));
+  });
+});
